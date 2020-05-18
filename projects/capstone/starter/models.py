@@ -68,13 +68,13 @@ class Movie(db.Model):
     __tablename__ = 'Movie'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
-    release_date = db.Column(db.Date)
+    genre = db.Column(db.String)
 
     def to_dict(self):
         return {
             'id': self.id,
             'title': self.title,
-            'release_date': self.release_date   
+            'genre': self.genre   
         }
     
     def insert(self):

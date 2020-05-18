@@ -23,21 +23,30 @@ def create_app(test_config=None):
   @requires_auth('get:actors')
   def get_actors(payload):
       actors = Actor.query.all()
-      actors = [actor.format() for actor in actors]
+      actors = [actor.to_dict() for actor in actors]
       return jsonify(actors)
 
   @app.route('/actors', methods=['POST'])
   @requires_auth('post:actors')
   def create_actor(payload):
       req = request.get_json()
+      
+      if req is None:
+          abort(400)
+      
       name = req['name']
+      age = req['age']
       gender = req['gender']
-      role = req['role']
 
       if name is None:
           abort(400)
       try:
-          actor = Actor(name=name, gender=gender, role=role)
+          actor = Actor()
+          actor.name = name
+          actor.age = age
+          actor.gender = gender
+          
+          print(actor)
           actor.insert()
           new_actor = actor.to_dict()
 
@@ -61,18 +70,18 @@ def create_app(test_config=None):
           abort(400)
 
       name = req.get('name')
+      age = req.get('age')
       gender = req.get('gender')
-      role = req.get('role')
-
+    
       try:
           if name:
               actor.name = name
 
+          if age:
+              actor.age = age
+
           if gender:
               actor.gender = gender
-
-          if role:
-              actor.gender = role
 
           actor.update()
 
@@ -105,20 +114,24 @@ def create_app(test_config=None):
   @requires_auth('get:movies')
   def get_movies(payload):
       movies = Movie.query.all()
-      movies = [movie.format() for movie in movies]
+      movies = [movie.to_dict() for movie in movies]
       return jsonify(movies)
 
   @app.route('/movies', methods=['POST'])
   @requires_auth('post:movies')
   def create_movie(payload):
       req = request.get_json()
+
+      if req is None:
+          abort(400)
+        
       title = req.get('title')
-      release_date = req.get('release_date', None)
+      genre = req.get('genre', None)
 
       if title is None:
           abort(400)
       try:
-          movie = Movie(title=title, release_date=release_date)
+          movie = Movie(title=title, genre=genre)
           movie.insert()
           new_movie = movie.to_dict()
 
@@ -142,14 +155,14 @@ def create_app(test_config=None):
           abort(400)
 
       title = req.get('title')
-      release_date = req.get('release_date')
+      genre = req.get('genre')
 
       try:
           if title:
               movie.title = title
 
-          if release_date:
-              movie.release_date = release_date
+          if genre:
+              movie.genre = genre
 
           movie.update()
 
@@ -205,9 +218,11 @@ def create_app(test_config=None):
 
   @app.errorhandler(AuthError)
   def auth_error(error):
-      return jsonify({
-          "message": error.error
-      }), error.status_code
+    return jsonify({
+        "success": False,
+        "error": error.status_code,
+        "message": error.error['description']
+    }), error.status_code
 
   return app
 

@@ -5,11 +5,13 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-#"https://nkcoffee.auth0.com/";
-#"actorsAndMovies";
-AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
-ALGORITHMS = os.getenv('ALGORITHMS')
-API_AUDIENCE = os.getenv('API_AUDIENCE')
+# AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
+# ALGORITHMS = os.getenv('ALGORITHMS')
+# API_AUDIENCE = os.getenv('API_AUDIENCE')
+
+AUTH0_DOMAIN = 'nkcoffee.auth0.com'
+ALGORITHMS = ['RS256']
+API_AUDIENCE = 'actorsAndMovies'
 
 ## AuthError Exception
 '''
@@ -81,7 +83,7 @@ def check_permissions(permission, payload):
     if permission not in payload['permissions']:
         raise AuthError({
             'code': 'unauthorized',
-            'description': 'Permission Not found',
+            'description': 'Permission not found',
         }, 401)
     return True
 
