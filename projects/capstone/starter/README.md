@@ -52,9 +52,18 @@ Setting the `FLASK_APP` variable to `app.py` directs flask to use the `app.py` f
 ### Get tokens and update in tests
 1. Open the following link in a browser: https://nkcoffee.auth0.com/authorize?audience=actorsAndMovies&response_type=token&client_id=zpizdFNFV6UnzgsReSwZwPM1UzVM3QT3&redirect_uri=http://localhost:8100
 2. 3 Users have been created with their respective roles.  Each uses the password p@$$w0rd
-  a. udacityFSNDCapstoneCastingAssistant@yahoo.com
-  b. udacityfsndcapstonecastingdirector@yahoo.com
-  c. udacityFSNDCapstoneExecutiveProducer@yahoo.com
+  a. Casting Assistant
+    - Email Address: udacityFSNDCapstoneCastingAssistant@yahoo.com
+    - Can view actors and movies
+  b. Casting Director
+    - Email Address: udacityfsndcapstonecastingdirector@yahoo.com
+    - All permissions a Casting Assistant has and…
+    - Add or delete an actor from the database
+    - Modify actors or movies
+  c. Executive Producer
+    - Email Address: udacityFSNDCapstoneExecutiveProducer@yahoo.com
+    - All permissions a Casting Director has and…
+    - Add or delete a movie from the database
 3. Once logged in, get the token parameter from the callback url
 4. To run unit tests, update the token for each role in test_app.py
 5. To test endpoints with [Postman](https://getpostman.com). 
