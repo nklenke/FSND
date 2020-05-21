@@ -89,6 +89,309 @@ GET '/categories'
 
 ```
 
+## Endpoints 
+### GET /categories
+- Returns a list of category objects and success value
+- Sample Response:
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "success": true
+}
+```
+
+### GET /questions
+- Returns a list of category objects, a paginated list of book objects in groups of 10, success value and total number of questions.  An optional request argument {page:int} allows the caller to choose the page number
+- Sample Response:
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "questions": [
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    },
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    },
+    {
+      "answer": "Mona Lisa",
+      "category": 2,
+      "difficulty": 3,
+      "id": 17,
+      "question": "La Giaconda is better known as what?"
+    },
+    {
+      "answer": "One",
+      "category": 2,
+      "difficulty": 4,
+      "id": 18,
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    },
+    {
+      "answer": "Jackson Pollock",
+      "category": 2,
+      "difficulty": 2,
+      "id": 19,
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    },
+    {
+      "answer": "The Liver",
+      "category": 1,
+      "difficulty": 4,
+      "id": 20,
+      "question": "What is the heaviest organ in the human body?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    },
+    {
+      "answer": "Blood",
+      "category": 1,
+      "difficulty": 4,
+      "id": 22,
+      "question": "Hematology is a branch of medicine involving the study of what?"
+    },
+    {
+      "answer": "Scarab",
+      "category": 4,
+      "difficulty": 4,
+      "id": 23,
+      "question": "Which dung beetle was worshipped by the ancient Egyptians?"
+    },
+    {
+      "answer": "Yadier Molina",
+      "category": 6,
+      "difficulty": 1,
+      "id": 24,
+      "question": "Who is the Cardinals catcher?"
+    }
+  ],
+  "success": true,
+  "total_questions": 20
+}
+```
+
+### POST /questions
+- Creates a new question using the submitted question, answer, difficulty and category. Returns the id of the created question, success value, the question created, total questions, and a paginated list of questions.
+- Sample Request:
+```
+{
+  "question": "Who is the Cardinals catcher?",
+  "answer": "Yadier Molina",
+  "difficulty": 1,
+  "category": 6
+}
+```
+- Sample Response:
+```
+{
+  "questions": [
+    {
+      "answer": "Agra",
+      "category": 3,
+      "difficulty": 2,
+      "id": 15,
+      "question": "The Taj Mahal is located in which Indian city?"
+    },
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    },
+    {
+      "answer": "Mona Lisa",
+      "category": 2,
+      "difficulty": 3,
+      "id": 17,
+      "question": "La Giaconda is better known as what?"
+    },
+    {
+      "answer": "One",
+      "category": 2,
+      "difficulty": 4,
+      "id": 18,
+      "question": "How many paintings did Van Gogh sell in his lifetime?"
+    },
+    {
+      "answer": "Jackson Pollock",
+      "category": 2,
+      "difficulty": 2,
+      "id": 19,
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+    },
+    {
+      "answer": "The Liver",
+      "category": 1,
+      "difficulty": 4,
+      "id": 20,
+      "question": "What is the heaviest organ in the human body?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    },
+    {
+      "answer": "Blood",
+      "category": 1,
+      "difficulty": 4,
+      "id": 22,
+      "question": "Hematology is a branch of medicine involving the study of what?"
+    },
+    {
+      "answer": "Scarab",
+      "category": 4,
+      "difficulty": 4,
+      "id": 23,
+      "question": "Which dung beetle was worshipped by the ancient Egyptians?"
+    },
+    {
+      "answer": "Yadier Molina",
+      "category": 6,
+      "difficulty": 1,
+      "id": 24,
+      "question": "Who is the Cardinals catcher?"
+    }
+  ],
+  "created": 24,
+  "question_created": "Who is the Cardinals catcher?",
+  "success": true,
+  "total_questions": 20
+}
+```
+
+### POST /questions
+- Returns a list of questions that satisfy the search term passed in, success value and total questions
+- Sample Request:
+```
+{
+  "searchTerm": "Yadier"
+}
+```
+- Sample Response:
+```
+{
+  "questions": [
+    {
+      "answer": "Yadier Molina",
+      "category": 6,
+      "difficulty": 1,
+      "id": 24,
+      "question": "Who is the Cardinals catcher?"
+    }
+  ],
+  "success": true,
+  "total_questions": 20
+}
+```
+
+### DELETE /questions/{question_id}
+- Deletes the question of the given ID if it exists.  Returns the id of the deleted question and success value
+- Sample Response:
+```
+{
+  "deleted": 24,
+  "success": true
+}
+```
+
+### GET /categories/{int:category_id}/questions
+- Returns a list of questions in the category passed in the url, the current category, success value and total questions
+- Sample Response:
+```
+{
+  "current_category": "Sports",
+  "questions": [
+    {
+      "answer": "Brazil",
+      "category": 6,
+      "difficulty": 3,
+      "id": 10,
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    },
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }
+  ],
+  "success": true,
+  "total_questions": 20
+}
+```
+
+### POST /quizzes
+- Returns a random question in the given category and does not ask previously asked questions
+- Sample Request:
+```
+{
+  "previous_questions":[11],
+  "quiz_category": {
+    "type":"Sports",
+    "id":"6"
+  }
+}
+```
+- Sample Response:
+```
+{
+  "question": {
+    "answer": "Brazil", 
+    "category": 6, 
+    "difficulty": 3, 
+    "id": 10, 
+    "question": "Which is the only team to play in every soccer World Cup tournament?"
+  }, 
+  "success": true
+}
+```
+
+## Error Handling
+Errors are returned as JSON objects in the following format:
+```
+{
+    "success": False, 
+    "error": 400,
+    "message": "Bad Request"
+}
+```
+The API will return three error types when requests fail:
+- 400: Bad Request
+- 404: Resource Not Found
+- 422: Unprocessable 
+- 500: Internal Server Error
 
 ## Testing
 To run the tests, run
